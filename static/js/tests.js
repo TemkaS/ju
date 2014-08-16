@@ -55,7 +55,7 @@ function initTestCases(container, caselist) {
             })
             .appendTo($item);
 
-        $code.html(functionCode(item.test))
+        $code.html(ju.escape(functionCode(item.test)))
             .hide()
             .appendTo($item);
 

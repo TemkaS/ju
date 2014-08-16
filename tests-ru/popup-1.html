@@ -16,7 +16,17 @@
     <script src="../static/ju/js/ju.popup.js" type="text/javascript"></script>
     <script src="../static/ju/js/ju.popup.util.js" type="text/javascript"></script>
     <script src="../static/ju/js/ju.console.js" type="text/javascript"></script>
-
+    <style>
+    .test-1 {
+        padding:   16px;
+    }
+    .test-1 .close {
+        position:  absolute;
+        right:     6px;
+        top:       0px;
+        font-size: 18px;
+    }
+    </style>
 </head>
 <body>
 
@@ -36,7 +46,9 @@
 initTestCases('#output', [
     {
         title: "• Информационное сообщение",
-        about: "такое сообщение информирует пользователя о том, что просто что-то произошло",
+        about: "такое сообщение информирует пользователя о том, что просто что-то произошло,<br />" +
+               "сообщения закрываются как по нажатию на кнопку Закрыть, так и по клавише Esc"
+               ,
         test:  function() {
             ju.Notice("У нас что-то произошло");
         }
@@ -44,7 +56,8 @@ initTestCases('#output', [
 
     {
         title: "• Сообщение об ошибке",
-        about: "такое сообщение информирует пользователя о том, что произошла какая-то ошибка",
+        about: "такое сообщение информирует пользователя о том, что произошла какая-то ошибка"
+               ,
         test:  function() {
             ju.Error("Произошла какая-то ошибка");
         }
@@ -52,7 +65,8 @@ initTestCases('#output', [
 
     {
         title: "• Очередь сообщений",
-        about: "все сообщения отображаются по очереди, чтобы пользователь успел ознакомиться с каждым из них",
+        about: "все сообщения отображаются по очереди, чтобы пользователь успел ознакомиться с каждым из них"
+               ,
         test:  function() {
             ju.Notice("Добрый день, %username%");
             ju.Notice("У вас 1000000 новых сообщений");
@@ -62,7 +76,8 @@ initTestCases('#output', [
 
     {
         title: "• Сообщение с callback функцией",
-        about: "поскольку сообщения не блокируют выполнение javascript-кода, то для определения момента закрытия сообщения используются callback-функции",
+        about: "поскольку сообщения не блокируют выполнение javascript-кода, то для определения момента закрытия сообщения используются callback-функции"
+               ,
         test:  function() {
             ju.Notice("Снова что-то произошло", function() {
                 alert("Этот alert вылез по закрытии");
@@ -72,7 +87,7 @@ initTestCases('#output', [
 
     {
         title: "• Изменение заголовка сообщений",
-        about: "в функции показа сообщения (ju.Notice, ju.Error, ju.Message) можно передавать объект с нужными параметрами, например:" +
+        about: "в функции показа сообщений (ju.Notice, ju.Error, ju.Message) можно передавать объект с нужными параметрами, например:" +
                "<br /><b>title</b> - заголовок сообщения," +
                "<br /><b>close</b> - подпись кнопки закрытия," +
                "<br /><b>text</b> - собственно сам текст сообщения," +
@@ -87,6 +102,57 @@ initTestCases('#output', [
             });
         }
     },
+
+    {
+        title: "• Кастомизация одного сообщения",
+        about: "в объекте параметров, передаваемом в функции показа сообщений, можно указать html-шаблон сообщений через параметр <b>template</b>"
+               ,
+        test:  function() {
+            /*
+            .test-1 {
+                padding:   16px;
+            }
+            .test-1 .close {
+                position:  absolute;
+                right:     6px;
+                top:       0px;
+                font-size: 18px;
+            }
+            */
+            ju.Message({
+                text:  "Сталося щось погане",
+                type:  "test-1",
+                template: '{{text}}<a href="javascript:;" class="close">&times;</a>'
+            });
+        }
+    },
+
+    {
+        title: "• Кастомизация группы сообщений",
+        about: "как говорилось ранее, в объекте параметров, передаваемом в функции показа сообщений, можно указать тип сообщений через параметр <b>type</b>," +
+               "<br />для каждого такого типа сообщений есть хранилище настроек, изменение этих настроек ведет к изменению отображения сообщений этого типа"
+               ,
+        test:  function() {
+            /*
+            .test-1 {
+                padding:   16px;
+            }
+            .test-1 .close {
+                position:  absolute;
+                right:     6px;
+                top:       0px;
+                font-size: 18px;
+            }
+            */
+            ju.Message.propByType['test-1'] = {
+                template: '{{text}}<a href="javascript:;" class="close">&times;</a>'
+            };
+            ju.Message("Сообщение типа test-1", 'test-1');
+            ju.Message("И еще одно сообщение", 'test-1');
+            ju.Message("И вот последнее", 'test-1');
+        }
+    },
+    
     
 ]);
 </script>
