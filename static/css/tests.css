@@ -9,20 +9,25 @@ body {
 
 h2 {
     font-weight: normal;
-    margin:    0px 0px 12px 0px;
+    margin:    0px 0px 10px 0px;
 }
 
-.test-about {
-    margin-bottom: 16px;
+h3 {
+    font-weight: normal;
+    margin:    0px 0px 6px 0px;
 }
 
-.test-cases a {
+a[href] {
     color:      #0088cc;
     text-decoration: none;
 }
 
-.test-cases a:hover {
+a[href]:hover {
     color:    #cc4444;
+}
+
+.test-about {
+    margin-bottom: 16px;
 }
 
 .test-cases .item {
