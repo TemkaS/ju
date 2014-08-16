@@ -17,10 +17,15 @@
     <script src="../static/ju/js/ju.popup.util.js" type="text/javascript"></script>
     <script src="../static/ju/js/ju.console.js" type="text/javascript"></script>
     <style>
-    .test-1 {
-        padding:   16px;
+    .ju-popup.test-1 {
+        background-image:    url('../static/icons/info_rhombus.png');
+        background-position: 14px 14px;
+        background-repeat:   no-repeat;
+        padding:    20px 40px 20px 60px;
+        text-align: left;
+        min-width:  0;
     }
-    .test-1 .close {
+    .ju-popup.test-1 .close {
         position:  absolute;
         right:     6px;
         top:       0px;
@@ -105,14 +110,25 @@ initTestCases('#output', [
 
     {
         title: "• Кастомизация одного сообщения",
-        about: "в объекте параметров, передаваемом в функции показа сообщений, можно указать html-шаблон сообщений через параметр <b>template</b>"
+        about: "в объекте параметров, передаваемом в функции показа сообщений, можно указать html-шаблон сообщений через параметр <b>template</b>," +
+               "<br />в шаблоне можно указать html-разметку, а также расположение заголовка и текста сообщения посредством маркеров:" +
+               "<br /><b>{{title}}</b> - заголовок сообщения," +
+               "<br /><b>{{close}}</b> - подпись кнопки закрытия," +
+               "<br /><b>{{text}}</b>  - текст сообщения," +
+               "<br />имена маркеров, как вы уже догадались, идентичны именам параметров в объекте параметров сообщения," +
+               "<br />вы скажете: «Хотим больше маркеров!», нет, не нужно больше маркеров и больше параметров, не надо усложнять сообщения."
                ,
         test:  function() {
             /*
-            .test-1 {
-                padding:   16px;
+            .ju-popup.test-1 {
+                background-image:    url('../static/icons/info_rhombus.png');
+                background-position: 14px 14px;
+                background-repeat:   no-repeat;
+                padding:    20px 40px 20px 60px;
+                text-align: left;
+                min-width:  0;
             }
-            .test-1 .close {
+            .ju-popup.test-1 .close {
                 position:  absolute;
                 right:     6px;
                 top:       0px;
@@ -134,10 +150,15 @@ initTestCases('#output', [
                ,
         test:  function() {
             /*
-            .test-1 {
-                padding:   16px;
+            .ju-popup.test-1 {
+                background-image:    url('../static/icons/info_rhombus.png');
+                background-position: 14px 14px;
+                background-repeat:   no-repeat;
+                padding:    20px 40px 20px 60px;
+                text-align: left;
+                min-width:  0;
             }
-            .test-1 .close {
+            .ju-popup.test-1 .close {
                 position:  absolute;
                 right:     6px;
                 top:       0px;
