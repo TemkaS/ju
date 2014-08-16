@@ -1,5 +1,6 @@
 /**
- * ju framework © darkslave.net
+ * ju framework © darkslave.net 
+ * https://github.com/darkslave86/ju
  */
 (function(window, ju, document) {
     "use strict";
