@@ -1,0 +1,215 @@
+/**
+ * ju framework © darkslave.net
+ * stylesheets for ju.popup.js
+ */
+
+.ju-popup-overlay {
+    background:  #F3F3F3;
+    opacity:     0.7;
+    filter:      alpha(Opacity=70);
+    
+}
+
+.ju-popup-overlay.error {
+    background:  #FFEEEE;
+}
+
+.ju-popup-overlay.notice {
+    background:  #EEEEFF;
+}
+
+
+.ju-popup {
+    cursor:      default;
+    padding:     0px;
+    margin:      20px;
+    
+    border:      1px #CCC solid;
+    background:  #F3F3F3;
+    color:       #333;
+
+    -webkit-border-radius: 6px;
+       -moz-border-radius: 6px;
+            border-radius: 6px;
+
+    -webkit-box-shadow:  0px 0px 16px rgba(192, 192, 192, 0.3);
+       -moz-box-shadow:  0px 0px 16px rgba(192, 192, 192, 0.3);
+            box-shadow:  0px 0px 16px rgba(192, 192, 192, 0.3);
+}
+
+
+.ju-popup > .header {
+    border-bottom: 1px #CCC solid;
+    padding:     4px 12px 6px 12px;
+    background:  transparent;
+    text-align:  center;
+    font-family: inherit;
+    font-size:   18px;
+}
+
+.ju-popup > .content {
+    padding:     12px 12px 8px 12px;
+    background:  transparent;
+    font-family: inherit;
+    font-size:   15px;
+}
+
+.ju-popup > .footer {
+    word-wrap:   normal;
+    padding:     8px 12px 8px 12px;
+    background:  transparent;
+    text-align:  center;
+}
+
+.ju-popup > .footer input.button + input.button {
+    margin-left:  24px;
+}
+
+
+.ju-popup.error {
+    border-color:  #EECCCC;
+    background:    #FFEEEE;
+    color:         #AA3333;
+}
+
+.ju-popup.error > .header {
+    border-color:  #EECCCC;
+}
+
+
+.ju-popup.notice {
+    border-color:  #CCCCEE;
+    background:    #EEEEFF;
+    color:         #3333AA;
+}
+
+.ju-popup.notice > .header {
+    border-color:  #CCCCEE;
+}
+
+
+/**************************************************************************************************
+*/
+.ju-popup input.button {
+    cursor:        pointer;
+    padding:       3px 12px 3px 12px;
+    font-family:   inherit;
+    font-size:     17px;
+    line-height:   21px;
+    line-height:   17px !ie;
+    vertical-align:  middle;
+    border-width:  1px;
+    border-style:  solid;
+    outline:       0px;
+}
+
+    
+.ju-popup input.button {
+    color:         #666666;
+    border-color:  #DDDDDD;
+    background:    #E7E7E7;
+    filter:        progid:DXImageTransform.Microsoft.gradient(enabled='true', startColorstr=#F3F3F3, endColorstr=#E3E3E3, GradientType=0);
+    background-image: -webkit-linear-gradient(top, #F3F3F3, #E3E3E3);
+    background-image:    -moz-linear-gradient(top, #F3F3F3, #E3E3E3);
+    background-image:     -ms-linear-gradient(top, #F3F3F3, #E3E3E3);
+    background-image:      -o-linear-gradient(top, #F3F3F3, #E3E3E3);
+    background-image:         linear-gradient(top, #F3F3F3, #E3E3E3);
+}
+
+.ju-popup input.button:hover {
+    color:         #333333;
+    border-color:  #CCCCCC;
+    background:    #D7D7D7;
+    filter:        progid:DXImageTransform.Microsoft.gradient(enabled='true', startColorstr=#EEEEEE, endColorstr=#D7D7D7, GradientType=0);
+    background-image: -webkit-linear-gradient(top, #EEEEEE, #D7D7D7);
+    background-image:    -moz-linear-gradient(top, #EEEEEE, #D7D7D7);
+    background-image:     -ms-linear-gradient(top, #EEEEEE, #D7D7D7);
+    background-image:      -o-linear-gradient(top, #EEEEEE, #D7D7D7);
+    background-image:         linear-gradient(top, #EEEEEE, #D7D7D7);
+}
+
+.ju-popup.error input.button {
+    color:         #AA6666;
+    border-color:  #EEDDDD;
+    background:    #FFE7E7;
+    filter:        progid:DXImageTransform.Microsoft.gradient(enabled='true', startColorstr=#FFF3F3, endColorstr=#FFE3E3, GradientType=0);
+    background-image: -webkit-linear-gradient(top, #FFF3F3, #FFE3E3);
+    background-image:    -moz-linear-gradient(top, #FFF3F3, #FFE3E3);
+    background-image:     -ms-linear-gradient(top, #FFF3F3, #FFE3E3);
+    background-image:      -o-linear-gradient(top, #FFF3F3, #FFE3E3);
+    background-image:         linear-gradient(top, #FFF3F3, #FFE3E3);
+}
+
+.ju-popup.error input.button:hover {
+    color:         #AA3333;
+    border-color:  #EECCCC;
+    background:    #FFD7D7;
+    filter:        progid:DXImageTransform.Microsoft.gradient(enabled='true', startColorstr=#FFEEEE, endColorstr=#FFD7D7, GradientType=0);
+    background-image: -webkit-linear-gradient(top, #FFEEEE, #FFD7D7);
+    background-image:    -moz-linear-gradient(top, #FFEEEE, #FFD7D7);
+    background-image:     -ms-linear-gradient(top, #FFEEEE, #FFD7D7);
+    background-image:      -o-linear-gradient(top, #FFEEEE, #FFD7D7);
+    background-image:         linear-gradient(top, #FFEEEE, #FFD7D7);
+}
+
+.ju-popup.notice input.button {
+    color:         #6666AA;
+    border-color:  #DDDDEE;
+    background:    #E7E7FF;
+    filter:        progid:DXImageTransform.Microsoft.gradient(enabled='true', startColorstr=#F3F3FF, endColorstr=#E3E3FF, GradientType=0);
+    background-image: -webkit-linear-gradient(top, #F3F3FF, #E3E3FF);
+    background-image:    -moz-linear-gradient(top, #F3F3FF, #E3E3FF);
+    background-image:     -ms-linear-gradient(top, #F3F3FF, #E3E3FF);
+    background-image:      -o-linear-gradient(top, #F3F3FF, #E3E3FF);
+    background-image:         linear-gradient(top, #F3F3FF, #E3E3FF);
+}
+
+.ju-popup.notice input.button:hover {
+    color:         #3333AA;
+    border-color:  #CCCCEE;
+    background:    #D7D7FF;
+    filter:        progid:DXImageTransform.Microsoft.gradient(enabled='true', startColorstr=#EEEEFF, endColorstr=#D7D7FF, GradientType=0);
+    background-image: -webkit-linear-gradient(top, #EEEEFF, #D7D7FF);
+    background-image:    -moz-linear-gradient(top, #EEEEFF, #D7D7FF);
+    background-image:     -ms-linear-gradient(top, #EEEEFF, #D7D7FF);
+    background-image:      -o-linear-gradient(top, #EEEEFF, #D7D7FF);
+    background-image:         linear-gradient(top, #EEEEFF, #D7D7FF);
+}
+
+
+
+/**************************************************************************************************
+*/
+.ju-popup.ju-message,
+.ju-popup.ju-confirm {
+    word-wrap:     break-word;
+    min-width:     300px;
+    max-width:     600px;
+    text-align:    center;
+}
+
+
+
+
+
+/**************************************************************************************************
+*/
+.ju-spinner-overlay {
+    background:    #F3F3F3;
+}
+
+.ju-popup.ju-spinner {
+    padding:       16px 28px 18px 24px;
+    max-width:     600px;
+}
+
+.ju-popup.ju-spinner > .content {
+    font-family:   inherit;
+    font-size:     20px;
+    line-height:   32px;
+    background:    url('ju.spinner.gif') left center no-repeat;
+    padding:       0px 0px 0px 48px;
+}
+
+
+

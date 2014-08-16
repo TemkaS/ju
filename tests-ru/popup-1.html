@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link  href="../static/css/normalize.css" rel="stylesheet" type="text/css" />
+    <script src="../static/js/jquery-1.11.1.js" type="text/javascript"></script>
+
+    <link  href="../static/hljs/css/github.css" rel="stylesheet" type="text/css" />
+    <script src="../static/hljs/highlight.js" type="text/javascript"></script>
+
+    <link  href="../static/css/tests.css" rel="stylesheet" type="text/css" />
+    <script src="../static/js/tests.js" type="text/javascript"></script>
+
+    <link  href="../static/ju/css/ju.popup.css" rel="stylesheet" type="text/css" />
+    <script src="../static/ju/js/ju.js" type="text/javascript"></script>
+    <script src="../static/ju/js/ju.popup.js" type="text/javascript"></script>
+    <script src="../static/ju/js/ju.popup.util.js" type="text/javascript"></script>
+    <script src="../static/ju/js/ju.console.js" type="text/javascript"></script>
+
+</head>
+<body>
+
+<div class="test-about">
+    <h2>Сообщения</h2>
+    Для информирования пользователя о каких-либо действиях или ошибках используются окна сообщений.<br />
+    Ниже представлены типовые примеры использования, для просмотра исходного кода примера кликните по ссылке "показать исходный код".
+</div>
+
+<div id="output" class="test-cases"></div>
+
+<script type="text/javascript">
+initTestCases('#output', [
+    {
+        title: "• Информационное сообщение",
+        about: "такое сообщение информирует пользователя о том, что просто что-то произошло",
+        test:  function() {
+            ju.Notice("У нас что-то произошло");
+        }
+    },
+
+    {
+        title: "• Сообщение об ошибке",
+        about: "такое сообщение информирует пользователя о том, что произошла какая-то ошибка",
+        test:  function() {
+            ju.Error("Произошла какая-то ошибка");
+        }
+    },
+
+    {
+        title: "• Очередь сообщений",
+        about: "все сообщения отображаются по очереди, чтобы пользователь успел ознакомиться с каждым из них",
+        test:  function() {
+            ju.Notice("Добрый день, %username%");
+            ju.Notice("У вас 1000000 новых сообщений");
+            ju.Error("У вас слишком много новых сообщений");
+        }
+    },
+
+    {
+        title: "• Сообщение с callback функцией",
+        about: "поскольку сообщения не блокируют выполнение javascript-кода, то для определения момента закрытия сообщения используются callback-функции",
+        test:  function() {
+            ju.Notice("Снова что-то произошло", function() {
+                alert("Этот alert вылез по закрытии");
+            });
+        }
+    },
+
+    {
+        title: "• Изменение заголовка сообщений",
+        about: "в функции показа сообщения (ju.Notice, ju.Error, ju.Message) можно передавать объект с нужными параметрами, например:" +
+               "<br /><b>title</b> - заголовок сообщения," +
+               "<br /><b>close</b> - подпись кнопки закрытия," +
+               "<br /><b>text</b> - собственно сам текст сообщения," +
+               "<br /><b>type</b> - css-класс сообщения"
+               ,
+        test:  function() {
+            ju.Message({
+                title: "Увага",
+                close: "Закрити",
+                text:  "Сталося щось погане",
+                type:  "error"
+            });
+        }
+    },
+    
+]);
+</script>
+
+</body>
+</html>
