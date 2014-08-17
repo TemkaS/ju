@@ -1,0 +1,122 @@
+body {
+    margin:       0px;
+    padding:      30px;
+    font-family:  Tahoma;
+    font-size:    14px;
+    line-height:  normal;
+    background:   #fcfcfc;
+}
+
+
+
+.field {
+    margin-bottom:8px;
+}
+
+.field > label {
+    display:      block;
+    margin-bottom:4px;
+}
+
+
+
+input[type="text"],
+input[type="password"],
+input[type="file"],
+textarea,
+select {
+    border:       1px solid #999999;
+    color:        #333333;
+    background:   #ffffff;
+    padding:      3px 4px 3px 4px;
+}
+
+input[type="radio"],
+input[type="checkbox"]  {
+    background:   transparent;
+    padding:      0px;
+}
+
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+input[type="image"]  {
+    padding:      6px 12px 6px 12px;
+    outline:      0px;
+    color:        #666666;
+    border:       1px solid #DDDDDD;
+    background:   #E7E7E7;
+    filter:       progid:DXImageTransform.Microsoft.gradient(enabled='true', startColorstr=#F3F3F3, endColorstr=#E3E3E3, GradientType=0);
+    background-image: -webkit-linear-gradient(top, #F3F3F3, #E3E3E3);
+    background-image:    -moz-linear-gradient(top, #F3F3F3, #E3E3E3);
+    background-image:         linear-gradient(top, #F3F3F3, #E3E3E3);
+}
+
+input[type="button"]:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+input[type="image"]:hover  {
+    color:        #333333;
+    border-color: #CCCCCC;
+    background:   #D7D7D7;
+    filter:       progid:DXImageTransform.Microsoft.gradient(enabled='true', startColorstr=#EEEEEE, endColorstr=#D7D7D7, GradientType=0);
+    background-image: -webkit-linear-gradient(top, #EEEEEE, #D7D7D7);
+    background-image:    -moz-linear-gradient(top, #EEEEEE, #D7D7D7);
+    background-image:         linear-gradient(top, #EEEEEE, #D7D7D7);
+}
+
+
+input[type="text"],
+input[type="password"],
+input[type="file"],
+textarea,
+select  {
+    width:        100%;
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+
+
+
+
+table.layout-table {
+    border-spacing:   0px;
+    border-collapse:  collapse;
+    width:        100%;
+    margin:       0px;
+    border:       0px none;
+    padding:      0px;
+}
+
+table.layout-table td {
+    padding:        0px;
+    vertical-align: top;
+}
+
+table.layout-table > tbody > tr > td:first-child {
+    padding:      0px !important;
+}
+
+table.layout-table.columns-2 td {
+    padding-left: 5.882353%;
+    width:        47.058824%;
+}
+
+table.layout-table.columns-3 td {
+    padding-left: 3.846154%;
+    width:        30.769231%;
+}
+
+table.layout-table.columns-4 td {
+    padding-left: 2.857143%;
+    width:        22.857143%;
+}
+
+table.layout-table.columns-5 td {
+    padding-left: 2.272727%;
+    width:        18.181818%;
+}
+
+

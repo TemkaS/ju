@@ -1,0 +1,176 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+
+    <link rel="stylesheet" href="/static/css/normalize.css" type="text/css" />
+    <link rel="stylesheet" href="default.css" type="text/css" />
+    
+    <script src="/static/js/jquery-1.11.1.js" type="text/javascript"></script>
+    <script src="/static/js/ju/ju.js" type="text/javascript"></script>
+    <script src="/static/js/ju/ju.observable.js" type="text/javascript"></script>
+    <script src="/static/js/ju/ju.model.js" type="text/javascript"></script>
+    <script src="/static/js/ju/ju.console.js" type="text/javascript"></script>
+
+</head>
+<body>
+
+<div class="field">
+    <input type="button" id="import" value="Импорт ..." />
+    <input type="button" id="export" value="Экспорт ..." />
+</div>
+
+    
+<form id="order-place" style="width: 600px;"></form>
+<span id="output"></span>
+
+
+<div style="display: none;">
+<div id="order-template">
+    <table class="layout-table columns-3">
+    <tr><td>
+    <div class="field">
+        <label>Фамилия</label>
+        <input type="text" name="lastName" value="" />
+    </div>
+
+    <div class="field">
+        <label>Имя</label>
+        <input type="text" name="firstName" value="" />
+    </div>
+    
+    <div class="field">
+        <label>Отчество</label>
+        <input type="text" name="middleName" value="" />
+    </div>
+
+    <div class="field">
+        <input type="button" class="product-append" value="Добавить продукт" />
+    </div>
+    
+    </td><td>
+    
+    <div class="field">
+        <label>Регион</label>
+        <select name="region"></select>
+    </div>
+  
+    </td><td>
+
+    <div class="field where-know-from"></div>
+  
+    </td></tr>
+
+    <tr><td colspan="3" class="product-holder"></td></tr>
+  
+    </table>
+</div>
+
+<div id="product-template">
+    <table class="layout-table columns-3">
+    <tr><td>
+    <div class="field">
+        <label>Услуга</label>
+        <input type="text" name="service" value="" />
+    </div>
+    </td><td>
+    <div class="field">
+        <label>Технология</label>
+        <input type="text" name="technology" value="" />
+    </div>
+    </td><td>
+    <div class="field">
+        <label>Номер</label>
+        <input type="text" name="number" value="" />
+    </div>
+    </td></tr>
+    </table>
+</div>
+
+</div>
+
+
+
+<script type="text/javascript">
+jQuery(function() {
+    var order = ju.Model.createFromTpl('#order-template');
+
+    order.updateRegions = function(callback) {
+        var field = this.get('region');
+        
+        field.target().prop('disabled', true);
+        
+        $.ajax({
+            url:      "/ajax/1",
+            type:     "POST",
+            async:    true,
+            cache:    false,
+            dataType: "json",
+            data:     {},
+            success:  function(resp) {
+                if (resp.isError) {
+                    alert(resp.errrorMsg);
+                    return;
+                }
+                
+                var html = '<option value="">– Выберите регион –</option>';
+                ju.forEach(resp.result, function(i, item) {
+                    html+= '<option value="' + i + '">' + item + '</option>';
+                });
+                
+                order.get('region').target().html(html);
+                
+            },
+            error:    function() {
+                alert("Ошибка доступа к сервису");
+            },
+            complete: function() {
+                field.updateField();
+                field.target().prop('disabled', false);
+                
+                if (ju.isFunction(callback))
+                    callback();
+                
+            }
+        });
+        
+    };
+    
+    
+    
+    order.prods = [];
+    
+    order.find('.product-append').click(function() {
+        var prod = ju.Model.createFromTpl('#product-template');
+        prod.fwdto(order, 'prods');
+        
+        order.find('.product-holder').append( prod.context() );
+        order.prods.push(prod);
+    });
+    
+    
+    order.on('change', function(e) {
+        
+        // console.log(e);
+        
+        var dump = "order: " + ju.dump(order.getState());
+        
+        ju.forEach(order.prods, function(i, prod) {
+            dump+= "<br>prod#" + i + ": " + ju.dump(prod.getState());
+        });
+        
+        $('#output').html(dump);
+    });
+
+    
+    order.updateRegions();
+    
+    order.context().appendTo('#order-place');    
+    
+    window.order = order;
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/static/css/normalize.css" type="text/css" />
+    <script src="/static/js/jquery-1.11.1.js" type="text/javascript"></script>
+    <script src="/static/js/ju/ju.js" type="text/javascript"></script>
+    <script src="/static/js/ju/ju.router.js" type="text/javascript"></script>
+    <script src="/static/js/ju/ju.console.js" type="text/javascript"></script>
+    <style type="text/css">
+    body {
+        font:     14px/normal Tahoma;
+        padding:  20px;
+        color:    #333;
+    }
+    #output a {
+        color:    #0088cc;
+        text-decoration: none;
+    }
+    #output a:hover {
+        color:    #cc4444;
+    }
+    #output p {
+        margin:   0px 0px 12px 0px;
+    }
+    </style>
+</head>
+<body>
+
+<div id="output">
+
+<p><a href="#/a/b/c">/a/b/c</a></p>
+<p><a href="#/a/b/X">/a/b/X</a></p>
+<p><a href="#/a/X/c">/a/X/c</a></p>
+<p><a href="#/X/b/c">/X/b/c</a></p>
+<p><a href="#/a/X/X">/a/X/X</a></p>
+<p><a href="#/X/X/c">/X/X/c</a></p>
+<p><a href="#/X/X/X">/X/X/X</a></p>
+
+<br />
+<p><a href="#/a/b/Привет">/a/b/Привет</a></p>
+<p><a href="#/a/b/%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82">/a/b/%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82</a></p>
+
+<br>
+<p><a href="javascript:;" onclick="console.log(location.hash, location.href);">Log hash</a></p>
+
+</div>
+
+
+<script type="text/javascript">
+
+ju.Router.add('/a/b/c', function() {
+    console.log("== " + location.hash + " | " + location.href);
+    console.log("/a/b/c", arguments);
+});
+
+ju.Router.add('/a/b/*', function() {
+    console.log("== " + location.hash + " | " + location.href);
+    console.log("/a/b/*", arguments);
+});
+
+ju.Router.add('/a/*/c', function() {
+    console.log("== " + location.hash + " | " + location.href);
+    console.log("/a/*/c", arguments);
+});
+
+ju.Router.add('/*/b/c', function() {
+    console.log("== " + location.hash + " | " + location.href);
+    console.log("/*/b/c", arguments);
+});
+
+ju.Router.add('/a/*/*', function() {
+    console.log("== " + location.hash + " | " + location.href);
+    console.log("/a/*/*", arguments);
+});
+
+ju.Router.add('/*/*/c', function() {
+    console.log("== " + location.hash + " | " + location.href);
+    console.log("/*/*/c", arguments);
+});
+
+ju.Router.add('/*/*/*', function() {
+    console.log("== " + location.hash + " | " + location.href);
+    console.log("/*/*/*", arguments);
+});
+
+</script>
+
+</body>
+</html>

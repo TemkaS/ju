@@ -1,0 +1,138 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/static/css/normalize.css" type="text/css" />
+    <script src="/static/js/jquery-1.11.1.js" type="text/javascript"></script>
+    <script src="/static/js/ju/ju.js" type="text/javascript"></script>
+    <script src="/static/js/ju/ju.loader.js" type="text/javascript"></script>
+    <script src="/static/js/ju/ju.console.js" type="text/javascript"></script>
+    <style type="text/css">
+    body {
+        font:     14px/normal Tahoma;
+        padding:  20px;
+        color:    #333;
+    }
+    #output a {
+        color:    #0088cc;
+        text-decoration: none;
+    }
+    #output a:hover {
+        color:    #cc4444;
+    }
+    #output p {
+        margin:   0px 0px 12px 0px;
+    }
+    </style>
+</head>
+<body>
+<div id="output"></div>
+
+<script type="text/javascript">
+(function(to, list) {
+    $.each(list, function(i, item) {
+        $('<p />')
+        .html(
+            $('<a href="javascript:;" />')
+            .html(item.title)
+            .click(item.test)
+        )
+        .appendTo(to);
+    });
+})('#output', [
+    {
+        title: "XHR load 1.txt",
+        test:  function() {
+            ju.Loader.__transport.xhr({
+                url:  "1.txt",
+                type: "GET"
+            }, function(resp) {
+                console.log(resp.statusCode + " " + resp.content);
+            });
+        }
+    },
+
+    {
+        title: "XHR load /ajax/1 (timeout)",
+        test:  function() {
+            ju.Loader.__transport.xhr({
+                url:     "/ajax/1",
+                type:    "GET",
+                timeout: 200
+            }, function(resp) {
+                console.log(resp.statusCode + " " + resp.content);
+            });
+        }
+    },
+    
+    {
+        title: "XHR load /ajax/2",
+        test:  function() {
+            ju.Loader.__transport.xhr({
+                url:  "/ajax/2",
+                type: "POST",
+                data: "name=MyTestData",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+                }
+            }, function(resp) {
+                console.log(resp.statusCode + " " + resp.content);
+            });
+        }
+    },
+
+    {
+        title: "DOM load 2.jpg",
+        test:  function() {
+            ju.Loader.__transport.dom({
+                tagName:    "IMG",
+                fireOnload: true,
+                timeout:    0,
+                attributes: {
+                    src: "2.jpg"
+                }
+            }, function(resp) {
+                console.log(resp.element.src + " loaded");
+            });
+        }
+    },
+    
+    {
+        title: "DOM load 2.jpg (timeout)",
+        test:  function() {
+            ju.Loader.__transport.dom({
+                tagName:    "IMG",
+                fireOnload: true,
+                timeout:    10,
+                attributes: {
+                    src: "2.jpg?" + Math.random()
+                }
+            }, function(resp) {
+                console.log(resp.element.src + " loaded");
+            });
+        }
+    },
+
+    {
+        title: "DOM:IMG load 2.jpg",
+        test:  function() {
+            ju.Loader.__transport['dom:img'](
+                "2.jpg?" + Math.random(),
+            function(resp) {
+                console.log(resp.element.src + " loaded");
+            });
+        }
+    },
+    
+    {
+        title: "",
+        test:  function() {
+            
+        }
+    }
+]);
+
+</script>
+
+</body>
+</html>
