@@ -124,7 +124,7 @@
 
 
     /**
-     * Рандомное число в указанном диапазоне
+     * Случайное число в указанном диапазоне
      */
     ju.random = function(Min, Max) {
         return Max ? Math.floor(Math.random() * (Max - Min)) + Min
@@ -143,7 +143,7 @@
 
 
     /**
-     * Рандомный идентификатор
+     * Случайный идентификатор
      */
     ju.unique = function() {
         var result = "ju";
@@ -155,7 +155,7 @@
 
 
     /**
-     * Экранирвоание html-спецсимволов
+     * Экранирование html-символов
      */
     ju.escape = function(text) {
         return String(text)
@@ -169,11 +169,11 @@
 
 
     /**
-     * Преобразование переходов на др. строку в теги br
+     * Преобразование переходов на другую строку в теги <br />
      */
     ju.nl2br = function(text) {
         return String(text)
-                .replace(/\r?\n|\r/g, '<br>');
+                .replace(/\r?\n|\r/g, '<br />');
     };
 
 
@@ -190,7 +190,7 @@
 
 
     /**
-     * Собрать все элементы списка / объекта в строку, используя разделитель
+     * Сложение всех элементов списка / объекта через разделитель
      */
     ju.join = function(value, sepp) {
         switch (ju.type(value)) {
@@ -258,7 +258,7 @@
 
 
     /**
-     * Повтор строки указанное кол-во раз
+     * Повтор строки указанное количество раз
      */
     ju.repeat = function(text, count) {
         var result = "";
@@ -364,7 +364,7 @@
     /**
      * Получение строки по шаблону,
      * все вхождения {{...}} распознаются как подстановочные переменные
-     * переменные ищутся в объекте параметров / либо функции
+     * переменные ищутся в объекте параметров или функции
      */
     ju.template = function(source, params) {
         var isfunc = ju.isFunction(params),
@@ -430,65 +430,50 @@
      * Защелка для выполнения набора некоторых условий
      */
     (function() {
-        var MARK_INITIAL = 0,
-            MARK_SUCCESS = 1,
-            MARK_FAILURE = 2;
 
+        /**
+         *  Конструктор защелки
+         */
+        function Latch(markers, callback) {
+            if (!ju.isArray(markers))
+                throw new Error('Markers is not an array');
 
-        function Latch(callback) {
             if (!ju.isFunction(callback))
                 throw new Error('Callback is not a function');
 
+            this.__markers = {};
+            this.__results = {};
+
+            var index = markers.length;
+
+            while (--index >= 0) {
+                var id = markers[index];
+                this.__markers[id] = false;
+            }
+            
             this.__callback = callback;
             this.__finished = false;
-            this.__markers  = {};
         }
 
 
-        Latch.prototype.init = function(init) {
-            switch (ju.type(init)) {
-                case 'string':
-                case 'number':
-                    this.__markers[init] = MARK_INITIAL;
-                    return;
-
-                case 'array':
-                    var index = init.length;
-
-                    while (--index >= 0) {
-                        this.__markers[init[index]] = MARK_INITIAL;
-                    }
-
-                    return;
-
-                default:
-                    throw new Error('Init is not valid');
-            }
-        };
-
-
-        Latch.prototype.mark = function(id, flag) {
+        /**
+         * Пометка выполнения одного из условий
+         */
+        Latch.prototype.mark = function(id, result) {
             if (this.__finished)
                 return false;
 
-            if (this.__markers[id] !== MARK_INITIAL)
+            if (this.__markers[id])
                 return false;
 
-            this.__markers[id] = flag !== false ? MARK_SUCCESS : MARK_FAILURE;
+            this.__markers[id] = true;
+            this.__results[id] = result;
 
-            var failed = [];
-
-            for (var item in this.__markers) {
-                var mark = this.__markers[item];
-
-                if (mark === MARK_INITIAL)
+            for (var id in this.__markers)
+                if (!this.__markers[id])
                     return false;
 
-                if (mark === MARK_FAILURE)
-                    failed.push(item);
-            }
-
-            this.__callback.call(null, failed);
+            this.__callback.call(null, this.__results);
 
             this.__finished = true;
             return true;

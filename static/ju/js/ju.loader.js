@@ -8,6 +8,8 @@
     if (ju == null || document == null)
         throw new Error('Dependencies are not resolved');
 
+    
+    
 
     var Loader = {};
 
@@ -17,14 +19,20 @@
     Loader.defaultTimeout = 30000;
 
 
-    Loader.__transport = {};
+    var transports = {};
+    
 
     Loader.setTransport = function(type, transport) {
         if (!ju.isFunction(transport))
             throw new Error('Transport is not a function');
-        Loader.__transport[type] = transport;
+        transports[type] = transport;
     };
 
+    
+    Loader.getTransport = function(type) {
+        return transports[type];
+    };
+    
 
 
     /**
@@ -63,26 +71,17 @@
 
             var success = function(_, abort, silent) {
                 if (!done && (abort || reqt.readyState === 4)) {
-                    var resp = {};
-                    resp.aborted = abort;
-                    resp.request = reqt;
-
                     delete loading[id];
                     reqt.onreadystatechange = null;
                     done = true;
 
-                    if (abort) {
-                        if (reqt.readyState !== 4)
-                            reqt.abort();
-                    } else {
-                        resp.statusCode = reqt.status !== 1223 ? reqt.status : 204;
-                        resp.statusText = reqt.statusText;
-                        resp.content    = reqt.responseText;
-                    }
+                    if (abort && reqt.readyState !== 4)
+                        reqt.abort();
 
-                    if (!silent) {
-                        complete(resp);
-                    }
+                    if (silent)
+                        return;
+                    
+                    complete(reqt, abort);
                 }
             };
 
@@ -161,15 +160,11 @@
             if (options.fireOnload) {
                 var success = function(_, abort) {
                     if (!done && (abort || isReady(node.readyState))) {
-                        var resp = {};
-                        resp.aborted = abort;
-                        resp.element = node;
-
                         node.onload  = node.onreadystatechange = null;
                         node.onerror = null;
                         done = true;
 
-                        complete(resp);
+                        complete(node, abort);
                     }
                 };
 
@@ -186,10 +181,7 @@
 
             } else {
                 window.setTimeout(function() {
-                    var resp = {};
-                    resp.aborted = undefined;
-                    resp.element = node;
-                    complete(resp);
+                    complete(node);
                 });
             }
 
@@ -210,15 +202,16 @@
         /**
          * Укороченная версия для загрузки js-файлов
          */
-        Loader.setTransport('dom:js', function(path, complete) {
+        Loader.setTransport('dom:js', function(origin, complete) {
             var options = {
                     tagName: "script",
                     attributes: {
-                        src:   path,
-                        type:  "text/javascript"
+                        src:    origin.url,
+                        type:   "text/javascript",
+                        charset: "utf-8"
                     },
                     fireOnload: true,
-                    timeout:    Loader.defaultTimeout
+                    timeout:    origin.timeout || Loader.defaultTimeout
                 };
             return Transport(options, complete);
         });
@@ -226,16 +219,16 @@
         /**
          * Укороченная версия для загрузки css-файлов
          */
-        Loader.setTransport('dom:css', function(path, complete) {
+        Loader.setTransport('dom:css', function(origin, complete) {
             var options = {
                     tagName: "link",
                     attributes: {
-                        href:  path,
-                        type:  "text/css",
-                        rel:   "stylesheet"
+                        href:   origin.url,
+                        type:   "text/css",
+                        rel:    "stylesheet"
                     },
                     fireOnload: false,
-                    timeout:    Loader.defaultTimeout
+                    timeout:    origin.timeout || Loader.defaultTimeout
                 };
             return Transport(options, complete);
         });
@@ -243,14 +236,14 @@
         /**
          * Укороченная версия для загрузки картинок
          */
-        Loader.setTransport('dom:img', function(path, complete) {
+        Loader.setTransport('dom:img', function(origin, complete) {
             var options = {
                     tagName: "img",
                     attributes: {
-                        src:   path
+                        src:    origin.url
                     },
                     fireOnload: true,
-                    timeout:    Loader.defaultTimeout
+                    timeout:    origin.timeout || Loader.defaultTimeout
                 };
             return Transport(options, complete);
         });
@@ -258,12 +251,27 @@
     })();
 
 
+    
+    
+    
+    
+    function define(depend, callback) {
+        if (!ju.isArray(depend))
+            throw new Error('Dependencies is not an array');
+
+        if (!ju.isFunction(callback))
+            throw new Error('Callback is not a function');
+        
+        
+        
+        
+    }
 
 
 
     /**
      * Экспорт классов
      */
-    ju.Loader = Loader;
+    ju.define = define;
 
 })(window, window.ju, window.document);

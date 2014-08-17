@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+</head>
+<body>
+
+<pre id="output"></pre>
+
+<script type="text/javascript">
+var $out = document.getElementById('output');
+
+var node = document.createElement('script');
+
+var success = function(e, abort) {
+    var e  = e || window.event;
+    $out.innerHTML+= e.type + " " + node.readyState + " " + window.var1 + "\n";
+};
+
+node.onload  = node.onreadystatechange = success;
+node.onerror = success;
+
+node.async = true;
+node.src = "1.js";
+
+$out.innerHTML+= "start load\n";
+
+var head = document.getElementsByTagName('head')[0];
+head.appendChild(node);
+</script>
+
+</body>
+</html>
